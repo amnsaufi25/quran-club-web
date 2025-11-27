@@ -24,13 +24,23 @@ interface LeadFormProps {
     onClose: () => void;
 }
 
-const initialState = {
+interface FormState {
+    message: string;
+    errors?: {
+        name?: string[];
+        email?: string[];
+        phone?: string[];
+        package?: string[];
+    };
+}
+
+const initialState: FormState = {
     message: '',
     errors: {},
 };
 
 export default function LeadForm({ selectedPackage, onClose }: LeadFormProps) {
-    const [state, formAction] = useState(initialState);
+    const [state, formAction] = useState<FormState>(initialState);
 
     const handleSubmit = async (formData: FormData) => {
         const result = await submitLead(initialState, formData);
@@ -40,7 +50,6 @@ export default function LeadForm({ selectedPackage, onClose }: LeadFormProps) {
             onClose();
         } else {
             // Error case
-            // @ts-ignore
             formAction(result);
         }
     };
@@ -88,7 +97,6 @@ export default function LeadForm({ selectedPackage, onClose }: LeadFormProps) {
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6 px-3"
                                     />
                                 </div>
-                                {/* @ts-ignore */}
                                 {state?.errors?.name && (
                                     <p className="mt-2 text-sm text-red-600">{state.errors.name[0]}</p>
                                 )}
@@ -107,7 +115,6 @@ export default function LeadForm({ selectedPackage, onClose }: LeadFormProps) {
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6 px-3"
                                     />
                                 </div>
-                                {/* @ts-ignore */}
                                 {state?.errors?.email && (
                                     <p className="mt-2 text-sm text-red-600">{state.errors.email[0]}</p>
                                 )}
@@ -127,7 +134,6 @@ export default function LeadForm({ selectedPackage, onClose }: LeadFormProps) {
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6 px-3"
                                     />
                                 </div>
-                                {/* @ts-ignore */}
                                 {state?.errors?.phone && (
                                     <p className="mt-2 text-sm text-red-600">{state.errors.phone[0]}</p>
                                 )}
@@ -136,9 +142,7 @@ export default function LeadForm({ selectedPackage, onClose }: LeadFormProps) {
                             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                                 <SubmitButton />
                             </div>
-                            {/* @ts-ignore */}
                             {state?.message && !state?.errors && (
-                                // @ts-ignore
                                 <p className="mt-4 text-sm text-center text-red-600">{state.message}</p>
                             )}
                         </form>
