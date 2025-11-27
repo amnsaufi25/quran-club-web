@@ -1,26 +1,50 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Custom Palette */
+  --sage-50: #f4f7f4;
+  --sage-100: #e3ebe3;
+  --sage-200: #c5d6c5;
+  --sage-300: #9cb59c;
+  --sage-400: #769276;
+  --sage-500: #567356;
+  
+  --cream-50: #fdfdfc;
+  --cream-100: #fbfaf8;
+  --cream-200: #f7f4ef;
+  --cream-300: #efe8dd;
+  --cream-500: #e6dac6;
+
+  --emerald-800: #064e3b;
+  --emerald-900: #022c22;
+  
+  --background: var(--cream-100);
+  --foreground: var(--emerald-900);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  
+  --color-sage-50: var(--sage-50);
+  --color-sage-100: var(--sage-100);
+  --color-sage-200: var(--sage-200);
+  --color-sage-300: var(--sage-300);
+  --color-sage-400: var(--sage-400);
+  --color-sage-500: var(--sage-500);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cream-50: var(--cream-50);
+  --color-cream-100: var(--cream-100);
+  --color-cream-200: var(--cream-200);
+  --color-cream-300: var(--cream-300);
+  --color-cream-500: var(--cream-500);
+
+  --color-emerald-deep: var(--emerald-800);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
+
