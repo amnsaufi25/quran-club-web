@@ -10,13 +10,17 @@ export const authConfig = {
             const isOnAdmin = nextUrl.pathname.startsWith('/admin');
             const isOnLogin = nextUrl.pathname.startsWith('/admin/login');
 
-            if (isOnAdmin) {
-                if (isOnLogin) return true; // Always allow access to login page
-                if (isLoggedIn) return true;
-                return false; // Redirect unauthenticated users to login page
-            } else if (isLoggedIn && isOnLogin) {
+            // If user is on the login page and is logged in, redirect to dashboard
+            if (isOnLogin && isLoggedIn) {
                 return Response.redirect(new URL('/admin', nextUrl));
             }
+
+            // If user is on an admin page (but not login), check auth
+            if (isOnAdmin && !isOnLogin) {
+                if (isLoggedIn) return true;
+                return false; // Redirect unauthenticated users to login page
+            }
+
             return true;
         },
     },
