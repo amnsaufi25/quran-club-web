@@ -1,7 +1,7 @@
 'use client';
 
 import { useFormState, useFormStatus } from 'react-dom';
-import { login } from '@/actions/auth';
+import { authenticate } from '@/actions/auth';
 import { Lock } from 'lucide-react';
 
 function LoginButton() {
@@ -18,13 +18,8 @@ function LoginButton() {
     );
 }
 
-const initialState = {
-    message: '',
-};
-
 export default function LoginPage() {
-    // @ts-ignore
-    const [state, formAction] = useFormState(login, initialState);
+    const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
     return (
         <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gray-50">
@@ -38,7 +33,7 @@ export default function LoginPage() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form action={formAction} className="space-y-6">
+                <form action={dispatch} className="space-y-6">
                     <div>
                         <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                             Kata Laluan
@@ -54,8 +49,8 @@ export default function LoginPage() {
                         </div>
                     </div>
 
-                    {state?.message && (
-                        <p className="text-sm text-red-600 text-center">{state.message}</p>
+                    {errorMessage && (
+                        <p className="text-sm text-red-600 text-center">{errorMessage}</p>
                     )}
 
                     <div>

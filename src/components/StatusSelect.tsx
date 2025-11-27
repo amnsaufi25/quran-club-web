@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { updateLeadStatus } from '@/actions/lead';
+import { toast } from 'sonner';
 
 interface StatusSelectProps {
     leadId: string;
@@ -27,15 +28,14 @@ export default function StatusSelect({ leadId, initialStatus }: StatusSelectProp
         const result = await updateLeadStatus(leadId, newStatus);
 
         if (!result.success) {
-            alert(result.message);
+            toast.error(result.message);
             setStatus(initialStatus); // Revert on failure
+        } else {
+            toast.success(result.message);
         }
 
         setLoading(false);
     };
-
-    const currentOption = STATUS_OPTIONS.find(opt => opt.value === status) || STATUS_OPTIONS[0];
-
     return (
         <div className="relative">
             <select

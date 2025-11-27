@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { submitLead } from '@/actions/submitLead';
 import { X } from 'lucide-react';
+import { toast } from 'sonner';
 
 function SubmitButton() {
     const { pending } = useFormStatus();
@@ -46,7 +47,7 @@ export default function LeadForm({ selectedPackage, onClose }: LeadFormProps) {
         const result = await submitLead(initialState, formData);
         if (result?.message && !result?.errors) {
             // Success case
-            alert(result.message);
+            toast.success(result.message);
             onClose();
         } else {
             // Error case
